@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {AppContainer} from './styles';
+import {Column} from './Column';
+import {Card} from './Card';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <Column text={'Column name'}>
+        <Card title={'card 1'}></Card>
+        <Card title={'card 2'}></Card>
+      </Column>
+      <Column text={'Second column'}>
+        <Card title={'card 1'}></Card>
+        <Card title={'card 2'}></Card>
+      </Column>
+      <Column text={'Third column'}>
+        <Card title={'card 1'}></Card>
+        <Card title={'card 2'}></Card>
+        <Card title={'card 3'}></Card>
+      </Column>
+    </AppContainer>
   );
 }
 
