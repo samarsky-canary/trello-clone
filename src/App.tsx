@@ -1,24 +1,25 @@
 import React from 'react';
-import {AppContainer} from './styles';
-import {Column} from './Column';
-import {Card} from './Card';
+import { AddItemButton, AppContainer } from './styles';
+import { Column } from './Column';
+import { Card } from './Card';
+import { AddNewItem } from './AddNewItem';
+import { useAppState } from './AppStateContext'
 
-function App() {
+
+
+const App = () => {
+  const {state, dispatch} = useAppState();
+
   return (
     <AppContainer>
-      <Column text={'Column name'}>
-        <Card title={'card 1'}></Card>
-        <Card title={'card 2'}></Card>
-      </Column>
-      <Column text={'Second column'}>
-        <Card title={'card 1'}></Card>
-        <Card title={'card 2'}></Card>
-      </Column>
-      <Column text={'Third column'}>
-        <Card title={'card 1'}></Card>
-        <Card title={'card 2'}></Card>
-        <Card title={'card 3'}></Card>
-      </Column>
+      {
+        state.lists.map( (list, i) => (
+        <Column id={list.id} text={list.text} key={list.id} index={i}/>)
+        )
+      }
+      <AddNewItem 
+        onAdd={text => dispatch({type:"ADD_LIST", payload: text})} 
+        toggleButtonText={"+ Add new column"}/>
     </AppContainer>
   );
 }
