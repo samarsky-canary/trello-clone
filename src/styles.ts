@@ -11,9 +11,15 @@ height: 100%;
 padding: 20px;
 width: 100%
 `
+interface DragPreviewContainerProps {
+    isHidden? : boolean;
+}
 
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+opacity: ${props => (props.isHidden ? 0.3 : 1)};
+`
 
-export const ColumnContainer = styled.div`
+export const ColumnContainer = styled(DragPreviewContainer)`
 background-color: #ebecf0;
 width: 300px;
 min-height: 40px;
@@ -86,3 +92,4 @@ margin: 0.5rem 0rem;
 padding: 0.5rem 1rem;
 width: 100%;
 `
+

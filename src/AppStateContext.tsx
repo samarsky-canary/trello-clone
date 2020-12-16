@@ -1,5 +1,7 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
+import { DragItem } from './DragItem';
+import { moveItem } from './moveItem';
 import { fintItemIndexById as findItemIndexById } from './utils/findItemIndexById'
 
 
@@ -16,6 +18,7 @@ interface List {
 
 export interface AppState {
     lists: List[]
+    draggedItem: DragItem | undefined
 }
 
 const appData: AppState = {
@@ -35,7 +38,8 @@ const appData: AppState = {
             text: 'Done',
             tasks: [{ id: "c3", text: "Begin to use static typing" }]
         }
-    ]
+    ],
+    draggedItem: undefined
 }
 
 interface AppStateContextProps {
@@ -75,6 +79,10 @@ type Action =
             dragIndex: number
             hoverIndex: number
         }
+    }
+    | {
+        type: "SET_DRAGGED_ITEM"
+        payload: DragItem | undefined
     };
 
 
@@ -100,6 +108,15 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
             return {
                 ...state
             };
+        }
+        case "MOVE_LIST": {
+            const {dragIndex, hoverIndex} = action.payload;
+            state.lists = moveItem(state.lists, dragIndex, hoverIndex);
+            return { ...state}
+        }
+        case "SET_DRAGGED_ITEM": {
+
+            return {...state, draggedItem: action.payload}
         }
         default: {
             return state;
